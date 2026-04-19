@@ -9,6 +9,11 @@ import { Github, Linkedin, X, ExternalLink, Filter, ChevronDown, Mail, Phone, Ma
 import { PROJECTS } from "@/assets/project.ts"
 import { Project, ProjectCardProps } from "@/types/project";
 
+const withBase = (path?: string | null): string => {
+  if (!path) return '';
+  if (/^(https?:)?\/\//.test(path)) return path;
+  return `${import.meta.env.BASE_URL}${path.replace(/^\/+/, '')}`;
+};
 
 function ProjectCard({ project, onClick }: ProjectCardProps) {
   const [isHovered, setIsHovered] = useState(false);
@@ -111,7 +116,7 @@ export default function App() {
       <header className="flex flex-col md:flex-row items-center md:items-start gap-8 mb-20">
         <div className="w-44 h-44 rounded-full bg-white/50 border-2 border-brand-blue/20 overflow-hidden flex-shrink-0">
           <img 
-            src="assets/images/profile.jpg" 
+            src={withBase("assets/images/profile.jpg")} 
             alt="Profile" 
             className="w-full h-full object-cover"
             referrerPolicy="no-referrer"
